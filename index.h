@@ -1,16 +1,13 @@
 #ifndef INDEX_H
 #define INDEX_H
 
-#include <sys/types.h>
-#include <dirent.h>
 
-typedef union ifile_ {
-  FILE *f;
-  DIR  *d;
-} ifile;
+typedef struct {
+  struct node[36];
+  int count;
+} node_;
 
-void usage();
+typedef node_ *node;
 
-ifile f;
 
 #endif

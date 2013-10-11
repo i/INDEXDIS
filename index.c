@@ -6,3 +6,7 @@
 void usage() {
   printf("Use it like disssssss\n");
 }
+
+node *create_node(void *data) {
+  node *ret = malloc(sizeof(node));
+}
