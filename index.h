@@ -31,11 +31,6 @@ void addToTree(char *, node);
 void printTree(node, char*);
 
 /*
- *  Prints usage information and returns error code.
- */
-int usage();
-
-/*
  *  Gets index for char.
  */
 int getIndex(int);
@@ -44,5 +39,16 @@ int getIndex(int);
  * Gets char for index.
  */
 char getChar(int);
+
+
+/*
+ * Makes a string lowercase.
+ */
+void lowerString(char *);
+
+/*
+ *  Prints usage information and returns error code.
+ */
+int usage();
 
 #endif

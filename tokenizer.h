@@ -75,7 +75,7 @@ char *unescape_string(char *);
  * Returns: a pointer to a tokenizer struct on success, a null pointer on failure
  *
  */
-TokenizerT *TKCreate(char *, char *);
+TokenizerT *TKCreate(char *delims, char *stream);
 
 
 /*

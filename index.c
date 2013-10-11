@@ -24,6 +24,7 @@ node createTree() {
 
 void addToTree(char *word, node root) {
   int height = strlen(word);
+  lowerString(word);
 
   /* Check if this is longest word */
   if (height > root->height)
@@ -54,7 +55,7 @@ void printTree(node root, char *buff) {
   int i;
 
   if (root->count > 0)
-    printf("%s\n", buff);
+    printf("%s : %d\n", buff, root->count);
 
   for (i = 0; i < 36; i++) {
     if (root->alphabet[i]) {
@@ -84,6 +85,14 @@ char getChar(int i) {
     return i + 'a' - 10;
 
   return 0;
+}
+
+
+void lowerString(char *s) {
+  for(; *s != '\0'; s++) {
+    if (isalpha(*s))
+      *s = tolower(*s);
+  }
 }
 
 
