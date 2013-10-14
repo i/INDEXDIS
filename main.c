@@ -29,6 +29,7 @@ int main(int argc, char **argv) {
         addToTree(s, trie);
       }
     }
+    fclose(fp);
   }
 
   /* If it wasn't a file, hopefully it's a directory. */
@@ -46,6 +47,7 @@ int main(int argc, char **argv) {
 
   buff = malloc(trie->height);
   printTree(trie, buff);
+/*  destroyTree(trie);*/
 
   return 0;
 }

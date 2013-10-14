@@ -22,6 +22,23 @@ node createTree() {
   return root;
 }
 
+int destroyTree(node root) {
+  int i;
+
+  /* If this root is null, go back up */
+  if (root == NULL)
+    return 0;
+
+  /* Go through every index of alphabet */
+  for (i = 0; i < 36; i++) {
+    if (destroyTree(root->alphabet[i]))
+      free(root->alphabet[i]);
+  }
+
+  return 1;
+
+}
+
 void addToTree(char *word, node root) {
   int height = strlen(word);
   lowerString(word);

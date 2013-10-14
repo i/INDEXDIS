@@ -20,9 +20,15 @@ node create_node();
 node createTree();
 
 /*
- * Adds a word to the tree.
+ * Recursively adds a word to the tree.
  */
 void addToTree(char *, node);
+
+
+/*
+ * Recursively destroys prefix tree.
+ */
+int destroyTree(node);
 
 
 /*
