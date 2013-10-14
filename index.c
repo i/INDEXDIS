@@ -7,8 +7,7 @@
 
 
 node create_node() {
-  node new = malloc(sizeof(struct node_));
-  new->alphabet = calloc(36, sizeof(node));
+  node new = calloc(1, sizeof(struct node_));
   new->count = 0;
   new->height = 0;
 
@@ -22,21 +21,16 @@ node createTree() {
   return root;
 }
 
-int destroyTree(node root) {
+void destroyTree(node root) {
   int i;
 
-  /* If this root is null, go back up */
-  if (root == NULL)
-    return 0;
-
-  /* Go through every index of alphabet */
   for (i = 0; i < 36; i++) {
-    if (destroyTree(root->alphabet[i]))
-      free(root->alphabet[i]);
+    if (root->alphabet[i]) {
+      destroyTree(root->alphabet[i]);
+    }
   }
 
-  return 1;
-
+  free(root);
 }
 
 void addToTree(char *word, node root) {
@@ -106,7 +100,7 @@ char getChar(int i) {
 
 
 void lowerString(char *s) {
-  for(; *s != '\0'; s++) {
+  for(; *s; ++s) {
     if (isalpha(*s))
       *s = tolower(*s);
   }

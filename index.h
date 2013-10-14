@@ -4,7 +4,7 @@
 
 
 struct node_ {
-  struct node_ **alphabet;
+  struct node_ *alphabet[36];
   int count;
   int height;
 };
@@ -28,7 +28,7 @@ void addToTree(char *, node);
 /*
  * Recursively destroys prefix tree.
  */
-int destroyTree(node);
+void destroyTree(node);
 
 
 /*
