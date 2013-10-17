@@ -30,11 +30,16 @@ void addToTree(char *, node);
  */
 void destroyTree(node);
 
+/*
+ * Recursive part of printTree 
+ */
+void pt(node, char *);
+
 
 /*
  * Print dat tree.
  */
-void printTree(node, char*);
+void printTree(node);
 
 /*
  *  Gets index for char.

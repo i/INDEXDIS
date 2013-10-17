@@ -62,7 +62,8 @@ void addToTree(char *word, node root) {
   addToTree(word + 1, root->alphabet[getIndex(*word)]);
 }
 
-void printTree(node root, char *buff) {
+
+void pt(node root, char *buff) {
   int i;
 
   if (root->count > 0)
@@ -72,10 +73,16 @@ void printTree(node root, char *buff) {
     if (root->alphabet[i]) {
       buff[strlen(buff)] = getChar(i);
       buff[strlen(buff)] = 0;
-      printTree(root->alphabet[i], buff);
+      pt(root->alphabet[i], buff);
       buff[strlen(buff) - 1] = 0;
-    }
+    }   
   }
+}
+
+void printTree(node root) {
+  char *buff = calloc(1, root->height);
+  pt(root, buff);
+  free(buff);
 }
 
 /*

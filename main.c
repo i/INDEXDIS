@@ -30,11 +30,7 @@ int main(int argc, char **argv) {
     fclose(fp);
   }
 
-
-  buff = calloc(1, trie->height);
-
-  printTree(trie, buff);
+  printTree(trie);
   destroyTree(trie);
-  free(buff);
   return 0;
 }
