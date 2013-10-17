@@ -1,15 +1,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/types.h>
-#include <dirent.h>
 #include <string.h>
+#include <ftw.h>
 
 #include "tokenizer.h"
 #include "index.h"
 
 int main(int argc, char **argv) {
 /*  struct dirent *ep;*/
-/*  DIR *dp;*/
   FILE *fp;
 /*  char *path = malloc(128);*/
   char *buff;
@@ -19,6 +18,7 @@ int main(int argc, char **argv) {
 /*  if (argc != 3) {*/
 /*    return usage();*/
 /*  }*/
+
 
   /* Try opening as a file first. */
   if ((fp = fopen(argv[1], "r"))) {
