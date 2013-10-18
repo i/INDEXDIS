@@ -1,33 +1,48 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #include <string.h>
 #include <ftw.h>
 
-#include "tokenizer.h"
 #include "index.h"
 
 int main(int argc, char **argv) {
-/*  struct dirent *ep;*/
+  /*  struct dirent *ep;*/
   FILE *fp;
-/*  char *path = malloc(128);*/
+  /* char *fpath = malloc(129); */
   char *buff;
   node trie = createTree();
-/*  TokenizerT *tok;*/
+  struct stat s;
 
-/*  if (argc != 3) {*/
-/*    return usage();*/
-/*  }*/
+  /* if (argc != 3) { */
+  /* return usage(1); */
+  /* } */
 
+  stat(argv[1], &s);
 
-  /* Try opening as a file first. */
-  if ((fp = fopen(argv[1], "r"))) {
+  /* Is a file */
+  if (S_ISREG(s.st_mode)) {
+    /* is a file */
     buff = calloc(1, 256);
-    while(fscanf(fp, "%s\n", buff) != EOF) {
+    fp = fopen(argv[1], "r");
+    hangOrnaments(fp, trie);
+    while (fscanf(fp, "%255[a-zA-Z0-9]", buff) == 1) {
       addToTree(buff, trie);
+      if (fscanf(fp, "%255[^a-zA-Z0-9]", buff) != 1) {
+        /* Skippin */
+      }
     }
-    free(buff);
-    fclose(fp);
+  } 
+
+  else if (S_ISDIR(s.st_mode)) {
+    /* TODO: */
+
+  } 
+
+  else {
+    usage(2);
   }
 
   printTree(trie);

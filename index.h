@@ -60,6 +60,6 @@ void lowerString(char *);
 /*
  *  Prints usage information and returns error code.
  */
-int usage();
+int usage(int);
 
 #endif

@@ -85,6 +85,7 @@ void printTree(node root) {
   free(buff);
 }
 
+
 /*
  * Converts the letter to an index of our array
  */
@@ -113,8 +114,15 @@ void lowerString(char *s) {
   }
 }
 
+int usage(int i) {
+  switch(i) {
+    case 1:
+      printf("Use it like disssssss\n");
+    case 2:
+      printf("INVALID FILE NAME\n");
+    default:
+      printf("fuck!\n");
+  }
 
-int usage() {
-  printf("Use it like disssssss\n");
   return 1;
 }
