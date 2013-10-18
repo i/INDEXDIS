@@ -17,7 +17,6 @@ tnode create_tnode() {
   return new;
 }
 
-
 lnode create_lnode(char *filename) {
   lnode new = malloc(sizeof(struct lnode_));
   strcpy(new->filename, filename);
@@ -64,6 +63,7 @@ void addToTree(char *word, tnode root, char *filename) {
       return;
     }
     root->count++;
+
     if (root->files == NULL) {
       root->files = create_lnode(filename);
     } else {
@@ -92,9 +92,17 @@ void addToTree(char *word, tnode root, char *filename) {
 
 void pt(tnode root, char *buff) {
   int i;
+  lnode p;
 
-  if (root->count > 0)
-    printf("%s : %d\n", buff, root->count);
+  if (root->count > 0) {
+    printf("\"%s\" ->", buff);
+    for (p = root->files; p != NULL; p = p->next) {
+      if (p->next == NULL)
+        printf("(\"%s\", %d)\n", p->filename, p->count);
+      else
+        printf("(\"%s\", %d), ", p->filename, p->count);
+    }
+  }
 
   for (i = 0; i < 36; i++) {
     if (root->alphabet[i]) {
