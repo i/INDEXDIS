@@ -35,11 +35,15 @@ void destroyTree(node);
  */
 void pt(node, char *);
 
-
 /*
  * Print dat tree.
  */
 void printTree(node);
+
+/*
+ * Adds every word in a file to a tire
+ */
+void hangOrnaments(FILE *, node);
 
 /*
  *  Gets index for char.

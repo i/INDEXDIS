@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
   /*  struct dirent *ep;*/
   FILE *fp;
   /* char *fpath = malloc(129); */
-  char *buff;
+  /*  char *buff;*/
   node trie = createTree();
   struct stat s;
 
@@ -25,16 +25,9 @@ int main(int argc, char **argv) {
   /* Is a file */
   if (S_ISREG(s.st_mode)) {
     /* is a file */
-    buff = calloc(1, 256);
     fp = fopen(argv[1], "r");
     hangOrnaments(fp, trie);
-    while (fscanf(fp, "%255[a-zA-Z0-9]", buff) == 1) {
-      addToTree(buff, trie);
-      if (fscanf(fp, "%255[^a-zA-Z0-9]", buff) != 1) {
-        /* Skippin */
-      }
-    }
-  } 
+  }
 
   else if (S_ISDIR(s.st_mode)) {
     /* TODO: */

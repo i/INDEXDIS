@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 #include "index.h"
 
@@ -75,7 +78,7 @@ void pt(node root, char *buff) {
       buff[strlen(buff)] = 0;
       pt(root->alphabet[i], buff);
       buff[strlen(buff) - 1] = 0;
-    }   
+    }
   }
 }
 
@@ -85,6 +88,17 @@ void printTree(node root) {
   free(buff);
 }
 
+
+void hangOrnaments(FILE *fp, node trie) {
+  char *buff = calloc(1, 256);
+  while (fscanf(fp, "%255[a-zA-Z0-9]", buff) == 1) {
+    addToTree(buff, trie);
+    if (fscanf(fp, "%255[^a-zA-Z0-9]", buff) != 1) {
+      /* Skippin */
+    }
+  }
+  free(buff);
+}
 
 /*
  * Converts the letter to an index of our array
