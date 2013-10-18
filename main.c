@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
   else if (S_ISDIR(s.st_mode)) {
     /* TODO: */
     ftw(argv[1], menorahTime, 7);
-    ptr = FILES->next;
+    ptr = FILES;
 
     while (ptr->next != NULL) {
       fp = fopen(ptr->filename, "r");
