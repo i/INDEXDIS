@@ -14,6 +14,9 @@ lnode FILES;
 /*Creates a new node with a string as its argument*/
 lnode create_lnode(char *);
 
+
+void destroy_list(lnode);
+
 /*
  * Trie node structure. Represents a single character
  */

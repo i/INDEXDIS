@@ -27,6 +27,13 @@ lnode create_lnode(char *filename) {
   return new;
 }
 
+void destroy_list(lnode list) {
+  if (list != NULL) {
+    destroy_list(list->next);
+    free(list);
+  }
+}
+
 tnode createTree() {
   tnode root = create_tnode();
   root->count = -1;
@@ -38,6 +45,7 @@ tnode createTree() {
 void destroyTree(tnode root) {
   int i;
 
+  destroy_list(root->files);
   for (i = 0; i < 36; i++) {
     if (root->alphabet[i]) {
       destroyTree(root->alphabet[i]);

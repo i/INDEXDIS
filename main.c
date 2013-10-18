@@ -47,5 +47,7 @@ int main(int argc, char **argv) {
 
   printTree(trie);
   destroyTree(trie);
+  destroy_list(FILES);
+
   return 0;
 }
