@@ -8,23 +8,33 @@
 
 #include "index.h"
 
-
-node create_node() {
-  node new = calloc(1, sizeof(struct node_));
+tnode create_tnode() {
+  tnode new = calloc(1, sizeof(struct tnode_));
   new->count = 0;
   new->height = 0;
+  new->files = NULL;
 
   return new;
 }
 
-node createTree() {
-  node root = create_node();
+
+lnode create_lnode(char *filename) {
+  lnode new = malloc(sizeof(struct lnode_));
+  strcpy(new->filename, filename);
+  new->count = 0;
+
+  return new;
+}
+
+tnode createTree() {
+  tnode root = create_tnode();
   root->count = -1;
+  root->files = NULL;
   root->height = 0;
   return root;
 }
 
-void destroyTree(node root) {
+void destroyTree(tnode root) {
   int i;
 
   for (i = 0; i < 36; i++) {
@@ -36,8 +46,9 @@ void destroyTree(node root) {
   free(root);
 }
 
-void addToTree(char *word, node root) {
+void addToTree(char *word, tnode root, char *filename) {
   int height = strlen(word);
+  lnode p;
   lowerString(word);
 
   /* Check if this is longest word */
@@ -45,7 +56,7 @@ void addToTree(char *word, node root) {
     root->height = height;
 
   /* We are given the empty string, meaning the whole word
-     should be in the tree by now and we should mark the node. */
+     should be in the tree by now and we should mark the tnode. */
   if (strcmp(word, "") == 0) {
     if (root->count == -1) {
       /* We should not get here */
@@ -53,20 +64,33 @@ void addToTree(char *word, node root) {
       return;
     }
     root->count++;
-    /* TODO: Add file list */
+    if (root->files == NULL) {
+      root->files = create_lnode(filename);
+    } else {
+      for (p = root->files; p != NULL; p = p->next) {
+        if (strcmp(p->filename, filename) == 0) {
+          p->count++;
+          return;
+        } else if (p->next == NULL) {
+          p->next = create_lnode(filename);
+          return;
+        }
+      }
+    }
+
     return;
   }
 
-  /* We do not have a node for the character
+  /* We do not have a tnode for the character
    * and need to make one here. */
   if (root->alphabet[getIndex(*word)] == 0)
-    root->alphabet[getIndex(*word)] = create_node();
+    root->alphabet[getIndex(*word)] = create_tnode();
 
-  addToTree(word + 1, root->alphabet[getIndex(*word)]);
+  addToTree(word + 1, root->alphabet[getIndex(*word)], filename);
 }
 
 
-void pt(node root, char *buff) {
+void pt(tnode root, char *buff) {
   int i;
 
   if (root->count > 0)
@@ -82,20 +106,18 @@ void pt(node root, char *buff) {
   }
 }
 
-void printTree(node root) {
+void printTree(tnode root) {
   char *buff = calloc(1, root->height);
   pt(root, buff);
   free(buff);
 }
 
 
-void hangOrnaments(FILE *fp, node trie) {
+void hangOrnaments(FILE *fp, tnode trie, char *filename) {
   char *buff = calloc(1, 256);
   while (fscanf(fp, "%255[a-zA-Z0-9]", buff) == 1) {
-    addToTree(buff, trie);
-    if (fscanf(fp, "%255[^a-zA-Z0-9]", buff) != 1) {
-      /* Skippin */
-    }
+    addToTree(buff, trie, filename);
+    fscanf(fp, "%255[^a-zA-Z0-9]", buff);
   }
   free(buff);
 }
@@ -109,7 +131,6 @@ int getIndex(int c) {
   return c - (int)'a' + 10;
 }
 
-
 char getChar(int i) {
   if (i >= 0 && i < 10)
     return i + '0';
@@ -119,7 +140,6 @@ char getChar(int i) {
 
   return 0;
 }
-
 
 void lowerString(char *s) {
   for(; *s; ++s) {
@@ -132,8 +152,10 @@ int usage(int i) {
   switch(i) {
     case 1:
       printf("Use it like disssssss\n");
+      break;
     case 2:
       printf("INVALID FILE NAME\n");
+      break;
     default:
       printf("fuck!\n");
   }

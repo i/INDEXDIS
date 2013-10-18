@@ -1,49 +1,65 @@
 #ifndef INDEX_H
 #define INDEX_H
 
-
-
-struct node_ {
-  struct node_ *alphabet[36];
+struct lnode_ {
+  char filename[256];
   int count;
-  int height;
+  struct lnode_ *next;
 };
 
-typedef struct node_ *node;
+typedef struct lnode_ *lnode;
+
+/*Creates a new node with a string as its argument*/
+lnode create_lnode(char *);
 
 /*
- *  Creates a new node.
+ * Trie node structure. Represents a single character
+ */
+struct tnode_ {
+  struct tnode_ *alphabet[36];
+  int height;
+  int count;
+  lnode files;
+};
+
+typedef struct tnode_ *tnode;
+
+/*
+ *  Creates a new trie node.
  *  Takes no arguments.
  */
-node create_node();
+tnode create_tnode();
 
-node createTree();
+
+/*
+ * Creates a new tree.
+ */
+tnode createTree();
 
 /*
  * Recursively adds a word to the tree.
  */
-void addToTree(char *, node);
-
+void addToTree(char *, tnode, char *);
 
 /*
  * Recursively destroys prefix tree.
  */
-void destroyTree(node);
+void destroyTree(tnode);
 
 /*
  * Recursive part of printTree 
  */
-void pt(node, char *);
+void pt(tnode, char *);
 
 /*
  * Print dat tree.
  */
-void printTree(node);
+void printTree(tnode);
 
 /*
  * Adds every word in a file to a tire
  */
-void hangOrnaments(FILE *, node);
+void hangOrnaments(FILE *, tnode, char *);
 
 /*
  *  Gets index for char.
@@ -54,7 +70,6 @@ int getIndex(int);
  * Gets char for index.
  */
 char getChar(int);
-
 
 /*
  * Makes a string lowercase.

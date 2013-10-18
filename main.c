@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
   FILE *fp;
   /* char *fpath = malloc(129); */
   /*  char *buff;*/
-  node trie = createTree();
+  tnode trie = createTree();
   struct stat s;
 
   /* if (argc != 3) { */
@@ -24,15 +24,13 @@ int main(int argc, char **argv) {
 
   /* Is a file */
   if (S_ISREG(s.st_mode)) {
-    /* is a file */
     fp = fopen(argv[1], "r");
     hangOrnaments(fp, trie);
   }
 
   else if (S_ISDIR(s.st_mode)) {
     /* TODO: */
-
-  } 
+  }
 
   else {
     usage(2);
