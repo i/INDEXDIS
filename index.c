@@ -20,7 +20,7 @@ tnode create_tnode() {
 lnode create_lnode(char *filename) {
   lnode new = malloc(sizeof(struct lnode_));
   strcpy(new->filename, filename);
-  new->count = 0;
+  new->count = 1;
 
   return new;
 }
@@ -95,7 +95,7 @@ void pt(tnode root, char *buff) {
   lnode p;
 
   if (root->count > 0) {
-    printf("\"%s\" ->", buff);
+    printf("\"%s\" -> ", buff);
     for (p = root->files; p != NULL; p = p->next) {
       if (p->next == NULL)
         printf("(\"%s\", %d)\n", p->filename, p->count);
