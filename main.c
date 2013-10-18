@@ -8,10 +8,6 @@
 
 #include "index.h"
 
-int menorahTime(const char *name, const struct stat *status, int type);
-
-lnode FILES = NULL;
-
 int main(int argc, char **argv) {
   /*  struct dirent *ep;*/
   FILE *fp;
@@ -51,18 +47,5 @@ int main(int argc, char **argv) {
 
   printTree(trie);
   destroyTree(trie);
-  return 0;
-}
-
-int menorahTime(const char *name, const struct stat *status, int type) {
-  lnode ptr;
-
-  if (FILES == NULL) {
-    FILES = create_lnode(strstr((char *)name, ""));
-  } else {
-    ptr = create_lnode(strstr((char *)name, ""));
-    ptr->next = FILES;
-    FILES = ptr;
-  }
   return 0;
 }

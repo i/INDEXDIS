@@ -8,6 +8,8 @@
 
 #include "index.h"
 
+lnode FILES = NULL;
+
 tnode create_tnode() {
   tnode new = calloc(1, sizeof(struct tnode_));
   new->count = 0;
@@ -154,6 +156,19 @@ void lowerString(char *s) {
     if (isalpha(*s))
       *s = tolower(*s);
   }
+}
+
+int menorahTime(const char *name, const struct stat *status, int type) {
+  lnode ptr;
+
+  if (FILES == NULL) {
+    FILES = create_lnode(strstr((char *)name, ""));
+  } else {
+    ptr = create_lnode(strstr((char *)name, ""));
+    ptr->next = FILES;
+    FILES = ptr;
+  }
+  return 0;
 }
 
 int usage(int i) {

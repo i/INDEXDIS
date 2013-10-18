@@ -9,6 +9,8 @@ struct lnode_ {
 
 typedef struct lnode_ *lnode;
 
+lnode FILES;
+
 /*Creates a new node with a string as its argument*/
 lnode create_lnode(char *);
 
@@ -75,6 +77,11 @@ char getChar(int);
  * Makes a string lowercase.
  */
 void lowerString(char *);
+
+/*
+ * Goes through files in dir
+ */
+int menorahTime(const char *, const struct stat *, int);
 
 /*
  *  Prints usage information and returns error code.
