@@ -9,12 +9,10 @@
 #include "index.h"
 
 int main(int argc, char **argv) {
-  /*  struct dirent *ep;*/
-  FILE *fp;
-  /* char *fpath = malloc(129); */
-  /*  char *buff;*/
-  tnode trie = createTree();
+  FILE *rf; /*  write file, read file*/
   struct stat s;
+
+  tnode trie = createTree();
   lnode ptr;
 
   /* if (argc != 3) { */
@@ -25,8 +23,9 @@ int main(int argc, char **argv) {
 
   /* Is a file */
   if (S_ISREG(s.st_mode)) {
-    fp = fopen(argv[1], "r");
-    hangOrnaments(fp, trie, argv[1]);
+    rf = fopen(argv[1], "r");
+    hangOrnaments(rf, trie, argv[1]);
+    fclose(rf);
   }
 
   else if (S_ISDIR(s.st_mode)) {
@@ -35,11 +34,12 @@ int main(int argc, char **argv) {
     ptr = FILES;
 
     while (ptr->next != NULL) {
-      fp = fopen(ptr->filename, "r");
-      hangOrnaments(fp, trie, ptr->filename);
+      rf = fopen(ptr->filename, "r");
+      hangOrnaments(rf, trie, ptr->filename);
+      fclose(rf);
       ptr = ptr->next;
     }
-  } 
+  }
 
   else {
     usage(2);

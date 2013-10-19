@@ -23,6 +23,7 @@ lnode create_lnode(char *filename) {
   lnode new = malloc(sizeof(struct lnode_));
   strcpy(new->filename, filename);
   new->count = 1;
+  new->next = NULL;
 
   return new;
 }
@@ -39,6 +40,7 @@ tnode createTree() {
   root->count = -1;
   root->files = NULL;
   root->height = 0;
+
   return root;
 }
 
@@ -56,7 +58,7 @@ void destroyTree(tnode root) {
 }
 
 void addToTree(char *word, tnode root, char *filename) {
-  int height = strlen(word);
+  int charcode, height = strlen(word);
   lnode p;
   lowerString(word);
 
@@ -87,16 +89,20 @@ void addToTree(char *word, tnode root, char *filename) {
         }
       }
     }
-
     return;
   }
 
   /* We do not have a tnode for the character
    * and need to make one here. */
-  if (root->alphabet[getIndex(*word)] == 0)
-    root->alphabet[getIndex(*word)] = create_tnode();
+  charcode = getIndex(*word);
+  if (charcode < 0 || charcode > 35) {
+    fprintf(stderr, "It broke. Adding nonvalid character to tree\n");
+  }
 
-  addToTree(word + 1, root->alphabet[getIndex(*word)], filename);
+  if (root->alphabet[charcode] == 0)
+    root->alphabet[charcode] = create_tnode();
+
+  addToTree(word + 1, root->alphabet[charcode], filename);
 }
 
 
