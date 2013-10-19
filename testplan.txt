@@ -1,0 +1,197 @@
+We have tested out indexer with a series of different cases.
+
+One such case can be found bellow of
+
+test/zoo
+├── baa
+├── boo
+└── foo
+    ├── baa
+    └── boo
+
+<list> a
+
+test/zoo/baa 1 test/zoo/boo 1 test/zoo/foo/baa 1 test/zoo/foo/boo 1 
+
+</list>
+
+<list> baa
+
+test/zoo/baa 1 test/zoo/foo/baa 1 
+
+</list>
+
+<list> boo
+
+test/zoo/boo 1 test/zoo/foo/boo 1 
+
+</list>
+
+<list> cat
+
+test/zoo/baa 1 test/zoo/foo/baa 1 
+
+</list>
+
+<list> dog
+
+test/zoo/boo 1 test/zoo/foo/boo 1 
+
+</list>
+
+<list> name
+
+test/zoo/boo 2 test/zoo/foo/boo 2 test/zoo/baa 1 test/zoo/foo/baa 1 
+
+</list>
+
+Another example is a file containing:
+
+do#g cat pig cat cart elf cart
+
+<list> cart
+
+test/test1.dat 2 
+
+</list>
+
+<list> cat
+
+test/test1.dat 2 
+
+</list>
+
+<list> do
+
+test/test1.dat 1 
+
+</list>
+
+<list> elf
+
+test/test1.dat 1 
+
+</list>
+
+<list> g
+
+test/test1.dat 1 
+
+</list>
+
+<list> pig
+
+test/test1.dat 1 
+
+</list>
+
+Another single file test is:
+
+Color Scheme This color scheme
+is based off of my popular IR Black theme for
+TextMate
+$%$#name
+oranges##my dude
+
+<list> based
+
+test/test4.dat 1 
+
+</list>
+
+<list> black
+
+test/test4.dat 1 
+
+</list>
+
+<list> color
+
+test/test4.dat 2 
+
+</list>
+
+<list> dude
+
+test/test4.dat 1 
+
+</list>
+
+<list> for
+
+test/test4.dat 1 
+
+</list>
+
+<list> ir
+
+test/test4.dat 1 
+
+</list>
+
+<list> is
+
+test/test4.dat 1 
+
+</list>
+
+<list> my
+
+test/test4.dat 2 
+
+</list>
+
+<list> name
+
+test/test4.dat 1 
+
+</list>
+
+<list> of
+
+test/test4.dat 1 
+
+</list>
+
+<list> off
+
+test/test4.dat 1 
+
+</list>
+
+<list> oranges
+
+test/test4.dat 1 
+
+</list>
+
+<list> popular
+
+test/test4.dat 1 
+
+</list>
+
+<list> scheme
+
+test/test4.dat 2 
+
+</list>
+
+<list> textmate
+
+test/test4.dat 1 
+
+</list>
+
+<list> theme
+
+test/test4.dat 1 
+
+</list>
+
+<list> this
+
+test/test4.dat 1 
+
+</list>
+
