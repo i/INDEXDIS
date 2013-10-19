@@ -23,9 +23,47 @@ lnode create_lnode(char *filename) {
   lnode new = malloc(sizeof(struct lnode_));
   strcpy(new->filename, filename);
   new->count = 1;
+  new->prev = NULL;
   new->next = NULL;
 
   return new;
+}
+
+void swap(lnode a, lnode b) {
+  char t[256];
+  strcpy(t, a->filename);
+
+  strcpy(a->filename, b->filename);
+  strcpy(b->filename, t);
+
+  a->count ^= b->count;
+  b->count ^= a->count;
+  a->count ^= b->count;
+
+}
+
+void insert_to_list(tnode root, char *filename) {
+  lnode p;
+
+  if (root->files == NULL) {
+    root->files = create_lnode(filename);
+    return;
+  }
+  else {
+    for (p = root->files; p != NULL; p = p->next) {
+      if (strcmp(p->filename, filename) == 0) {
+        p->count++;
+        while (p->prev != NULL && p->count < p->prev->count) {
+          swap(p, p->prev);
+          p = p->prev;
+        }
+      } else if (p->next == NULL) {
+        p->next = create_lnode(filename);
+        p->next->prev = p;
+        return;
+      }
+    }
+  }
 }
 
 void destroy_list(lnode list) {
@@ -59,15 +97,16 @@ void destroyTree(tnode root) {
 
 void addToTree(char *word, tnode root, char *filename) {
   int charcode, height = strlen(word);
-  lnode p;
   lowerString(word);
 
   /* Check if this is longest word */
   if (height > root->height)
     root->height = height;
 
-  /* We are given the empty string, meaning the whole word
-     should be in the tree by now and we should mark the tnode. */
+  /*
+   * We are given the empty string, meaning the whole word
+   * should be in the tree by now and we should mark the tnode.
+   */
   if (strcmp(word, "") == 0) {
     if (root->count == -1) {
       /* We should not get here */
@@ -76,19 +115,6 @@ void addToTree(char *word, tnode root, char *filename) {
     }
     root->count++;
 
-    if (root->files == NULL) {
-      root->files = create_lnode(filename);
-    } else {
-      for (p = root->files; p != NULL; p = p->next) {
-        if (strcmp(p->filename, filename) == 0) {
-          p->count++;
-          return;
-        } else if (p->next == NULL) {
-          p->next = create_lnode(filename);
-          return;
-        }
-      }
-    }
     return;
   }
 

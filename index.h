@@ -5,6 +5,7 @@ struct lnode_ {
   char filename[256];
   int count;
   struct lnode_ *next;
+  struct lnode_ *prev;
 };
 
 typedef struct lnode_ *lnode;
@@ -14,7 +15,7 @@ lnode FILES;
 /*Creates a new node with a string as its argument*/
 lnode create_lnode(char *);
 
-
+/* Destroys the list */
 void destroy_list(lnode);
 
 /*
@@ -34,6 +35,12 @@ typedef struct tnode_ *tnode;
  *  Takes no arguments.
  */
 tnode create_tnode();
+
+/* Swaps two nodes */
+void swap(lnode, lnode);
+
+/* Inserts a filesname into list */
+void insert_to_list(tnode, char *);
 
 
 /*
