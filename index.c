@@ -106,17 +106,17 @@ void addToTree(char *word, tnode root, char *filename) {
 }
 
 
-void pt(tnode root, char *buff) {
+void pt(tnode root, char *buff, FILE *wf) {
   int i;
   lnode p;
 
   if (root->count > 0) {
-    printf("\"%s\" -> ", buff);
+    fprintf(wf, "\"%s\" -> ", buff);
     for (p = root->files; p != NULL; p = p->next) {
       if (p->next == NULL)
-        printf("(\"%s\", %d)\n", p->filename, p->count);
+        fprintf(wf, "(\"%s\", %d)\n", p->filename, p->count);
       else
-        printf("(\"%s\", %d), ", p->filename, p->count);
+        fprintf(wf, "(\"%s\", %d), ", p->filename, p->count);
     }
   }
 
@@ -124,15 +124,15 @@ void pt(tnode root, char *buff) {
     if (root->alphabet[i]) {
       buff[strlen(buff)] = getChar(i);
       buff[strlen(buff)] = 0;
-      pt(root->alphabet[i], buff);
+      pt(root->alphabet[i], buff, wf);
       buff[strlen(buff) - 1] = 0;
     }
   }
 }
 
-void printTree(tnode root) {
+void printTree(tnode root, FILE *wf) {
   char *buff = calloc(1, root->height);
-  pt(root, buff);
+  pt(root, buff, wf);
   free(buff);
 }
 

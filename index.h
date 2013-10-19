@@ -54,12 +54,12 @@ void destroyTree(tnode);
 /*
  * Recursive part of printTree 
  */
-void pt(tnode, char *);
+void pt(tnode, char *, FILE *);
 
 /*
  * Print dat tree.
  */
-void printTree(tnode);
+void printTree(tnode, FILE *);
 
 /*
  * Adds every word in a file to a tire

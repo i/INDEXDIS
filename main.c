@@ -9,15 +9,18 @@
 #include "index.h"
 
 int main(int argc, char **argv) {
-  FILE *rf; /*  write file, read file*/
+  FILE *rf; /* read file */
+  FILE *wf; /* write file */
   struct stat s;
 
   tnode trie = createTree();
   lnode ptr;
 
-  /* if (argc != 3) { */
-  /* return usage(1); */
-  /* } */
+  if (argc != 3) {
+    return usage(1);
+  }
+
+  if file exists
 
   stat(argv[1], &s);
 
@@ -45,7 +48,7 @@ int main(int argc, char **argv) {
     usage(2);
   }
 
-  printTree(trie);
+  printTree(trie, wf);
   destroyTree(trie);
   destroy_list(FILES);
 
