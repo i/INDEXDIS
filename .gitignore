@@ -18,3 +18,7 @@
 *.app
 
 index
+
+*.swp
+
+out

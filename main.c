@@ -12,6 +12,7 @@ int main(int argc, char **argv) {
   FILE *rf; /* read file */
   FILE *wf; /* write file */
   struct stat s;
+  char overwrite;
 
   tnode trie = createTree();
   lnode ptr;
@@ -20,20 +21,31 @@ int main(int argc, char **argv) {
     return usage(1);
   }
 
-  if file exists
+  /* Check if file exists */
+  if (access(argv[1], F_OK) != -1) {
+    while (overwrite != 'y' && overwrite != 'n') {
+      printf("Output file already exists. Overwrite? (y/n)");
+      overwrite = getc(stdin);
+      if (overwrite == 'n') {
+        return 1;
+      } 
+    }
+  }
 
-  stat(argv[1], &s);
+  wf = fopen(argv[1], "w");
+
+  stat(argv[2], &s);
 
   /* Is a file */
   if (S_ISREG(s.st_mode)) {
-    rf = fopen(argv[1], "r");
-    hangOrnaments(rf, trie, argv[1]);
+    rf = fopen(argv[2], "r");
+    hangOrnaments(rf, trie, argv[2]);
     fclose(rf);
   }
 
   else if (S_ISDIR(s.st_mode)) {
     /* TODO: */
-    ftw(argv[1], menorahTime, 7);
+    ftw(argv[2], menorahTime, 7);
     ptr = FILES;
 
     while (ptr->next != NULL) {
