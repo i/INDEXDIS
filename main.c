@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
   /* Check if file exists */
   if (access(argv[1], F_OK) != -1) {
     while (overwrite != 'y' && overwrite != 'n') {
-      printf("Output file already exists. Overwrite? (y/n)");
+      printf("Output file already exists. Overwrite? (y/n)\n");
       overwrite = getc(stdin);
       if (overwrite == 'n') {
         return 1;
@@ -43,8 +43,8 @@ int main(int argc, char **argv) {
     fclose(rf);
   }
 
+  /* Is a dir */
   else if (S_ISDIR(s.st_mode)) {
-    /* TODO: */
     ftw(argv[2], menorahTime, 7);
     ptr = FILES;
 
@@ -56,11 +56,13 @@ int main(int argc, char **argv) {
     }
   }
 
+  /* Does not exist or is bad */
   else {
     usage(2);
   }
 
   printTree(trie, wf);
+  fclose(wf);
   destroyTree(trie);
   destroy_list(FILES);
 

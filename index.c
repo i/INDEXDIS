@@ -53,10 +53,11 @@ void insert_to_list(tnode root, char *filename) {
     for (p = root->files; p != NULL; p = p->next) {
       if (strcmp(p->filename, filename) == 0) {
         p->count++;
-        while (p->prev != NULL && p->count < p->prev->count) {
+        while (p->prev != NULL && p->count > p->prev->count) {
           swap(p, p->prev);
           p = p->prev;
         }
+        return;
       } else if (p->next == NULL) {
         p->next = create_lnode(filename);
         p->next->prev = p;
@@ -114,6 +115,7 @@ void addToTree(char *word, tnode root, char *filename) {
       return;
     }
     root->count++;
+    insert_to_list(root, filename);
 
     return;
   }
@@ -137,13 +139,10 @@ void pt(tnode root, char *buff, FILE *wf) {
   lnode p;
 
   if (root->count > 0) {
-    fprintf(wf, "\"%s\" -> ", buff);
-    for (p = root->files; p != NULL; p = p->next) {
-      if (p->next == NULL)
-        fprintf(wf, "(\"%s\", %d)\n", p->filename, p->count);
-      else
-        fprintf(wf, "(\"%s\", %d), ", p->filename, p->count);
-    }
+    fprintf(wf, "<list> %s\n\n", buff);
+    for (p = root->files; p != NULL; p = p->next)
+      fprintf(wf, "%s %d ", p->filename, p->count);
+    fprintf(wf, "\n\n</list>\n\n");
   }
 
   for (i = 0; i < 36; i++) {
@@ -214,13 +213,13 @@ int menorahTime(const char *name, const struct stat *status, int type) {
 int usage(int i) {
   switch(i) {
     case 1:
-      printf("Use it like disssssss\n");
+      printf("Usage: ./index <output_file> <input_file | input_directory>\n");
       break;
     case 2:
-      printf("INVALID FILE NAME\n");
+      printf("INVALID INPUT FILE\n");
       break;
     default:
-      printf("fuck!\n");
+      printf("Something else bad happened!!\n");
   }
 
   return 1;
